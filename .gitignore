@@ -57,3 +57,5 @@ htmlcov
 *.pem
 
 .DS_Store
+
+.idea/*

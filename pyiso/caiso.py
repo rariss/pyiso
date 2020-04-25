@@ -296,11 +296,12 @@ class CAISOClient(BaseClient):
             except TypeError:
                 str_data = StringIO(data)
 
-            df = pd.DataFrame.from_csv(str_data, sep=",")
+            df = pd.read_csv(str_data, sep=",", index_col=0)
+            df.sort_index(inplace=True)
 
             # strip congestion and loss prices
             try:
-                df = df.ix[df['LMP_TYPE'] == 'LMP']
+                df = df.loc[df['LMP_TYPE'] == 'LMP']
             except KeyError:  # no good data
                 return pd.DataFrame()
         else:
