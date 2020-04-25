@@ -1,5 +1,5 @@
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp import LOGGER
 from os import environ
 import pandas as pd
 

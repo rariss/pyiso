@@ -1,4 +1,4 @@
-from pyiso.base import BaseClient
+from pyiso_lmp.base import BaseClient
 
 
 class SPPClient(BaseClient):

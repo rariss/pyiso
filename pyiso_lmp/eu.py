@@ -1,6 +1,6 @@
 import time
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp import LOGGER
 import requests
 import pandas as pd
 import numpy as np

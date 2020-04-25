@@ -1,5 +1,5 @@
-from pyiso import client_factory, BALANCING_AUTHORITIES
-from pyiso.base import FUEL_CHOICES, BaseClient
+from pyiso_lmp import client_factory, BALANCING_AUTHORITIES
+from pyiso_lmp.base import FUEL_CHOICES, BaseClient
 from unittest import TestCase, skip
 from datetime import datetime, timedelta
 import pytz

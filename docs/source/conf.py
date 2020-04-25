@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# pyiso documentation build configuration file, created by
+# pyiso_lmp documentation build configuration file, created by
 # sphinx-quickstart on Fri Mar 28 19:04:32 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'pyiso'
+project = u'pyiso_lmp'
 copyright = u'2016, WattTime'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -201,7 +201,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'pyiso.tex', u'pyiso Documentation',
+  ('index', 'pyiso_lmp.tex', u'pyiso_lmp Documentation',
    u'Anna Schneider', 'manual'),
 ]
 
@@ -231,7 +231,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pyiso', u'pyiso Documentation',
+    ('index', 'pyiso_lmp', u'pyiso_lmp Documentation',
      [u'Anna Schneider'], 1)
 ]
 
@@ -245,8 +245,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'pyiso', u'pyiso Documentation',
-   u'Anna Schneider', 'pyiso', 'One line description of project.',
+  ('index', 'pyiso_lmp', u'pyiso_lmp Documentation',
+   u'Anna Schneider', 'pyiso_lmp', 'One line description of project.',
    'Miscellaneous'),
 ]
 

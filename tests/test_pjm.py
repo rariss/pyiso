@@ -1,4 +1,4 @@
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 from unittest import TestCase
 import pandas as pd
 from datetime import datetime, timedelta

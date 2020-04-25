@@ -1,5 +1,5 @@
 import os
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 from unittest import TestCase, expectedFailure, skip
 from io import StringIO
 import pandas as pd
@@ -756,7 +756,7 @@ class TestCAISOBase(TestCase):
         self.assertItemsEqual(loc_data[0].keys(),
                               ['node_id', 'latitude', 'longitude', 'area'])
 
-    @mock.patch('pyiso.caiso.CAISOClient.request')
+    @mock.patch('pyiso_lmp.caiso.CAISOClient.request')
     def test_bad_data(self, mock_request):
         mock_request.return_value = requests.get('https://httpbin.org/')
 
@@ -767,7 +767,7 @@ class TestCAISOBase(TestCase):
 
         self.assertIsInstance(df, pd.DataFrame)
 
-    @mock.patch('pyiso.caiso.CAISOClient.request')
+    @mock.patch('pyiso_lmp.caiso.CAISOClient.request')
     def test_bad_data_lmp_only(self, mock_request):
         mock_request.return_value = requests.get('https://httpbin.org/')
 

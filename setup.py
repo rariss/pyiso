@@ -35,9 +35,9 @@ with codecs.open('README.md', encoding='utf-8') as f:
 
 
 setup(
-    name='pyiso',
-    packages=['pyiso'],
-    version=find_version('pyiso', '__init__.py'),
+    name='pyiso_lmp',
+    packages=['pyiso_lmp'],
+    version=find_version('pyiso_lmp', '__init__.py'),
     description='Python client libraries for ISO and other power grid data sources.',
     long_description=long_description,
     author='Anna Schneider',

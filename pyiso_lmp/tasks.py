@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from celery import shared_task
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 import logging
 from datetime import datetime
 

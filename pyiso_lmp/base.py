@@ -8,7 +8,7 @@ import pandas as pd
 import zipfile
 from io import StringIO, BytesIO
 from time import sleep
-from pyiso import LOGGER
+from pyiso_lmp.pyiso_lmp import LOGGER
 from pytz import AmbiguousTimeError
 import ssl
 import certifi
@@ -238,7 +238,7 @@ class BaseClient(object):
         xd = pd.ExcelFile(socket)
         return xd
 
-    def request(self, url, mode='get', retry_sec=5, retries_remaining=5, **kwargs):
+    def request(self, url, mode='get', retry_sec=3, retries_remaining=5, **kwargs):
         """
         Get or post to a URL with the provided kwargs.
         Returns the response, or None if an error was encountered.
@@ -287,7 +287,7 @@ class BaseClient(object):
                 sleep(retry_sec)
                 retries_remaining -= 1
                 return self.request(url, mode=mode,
-                                    retry_sec=retry_sec*2, retries_remaining=retries_remaining,
+                                    retry_sec=retry_sec+1, retries_remaining=retries_remaining,
                                     **kwargs)
             else:
                 # exhausted retries

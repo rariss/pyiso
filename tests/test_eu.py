@@ -1,4 +1,4 @@
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 from unittest import TestCase
 from datetime import datetime
 import mock

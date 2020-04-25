@@ -1,4 +1,4 @@
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 from unittest import TestCase
 from io import StringIO
 from datetime import date, datetime

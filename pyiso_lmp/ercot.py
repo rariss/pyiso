@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp import LOGGER
 import pandas as pd
 from io import StringIO
 import re

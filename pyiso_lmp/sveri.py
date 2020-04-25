@@ -1,5 +1,5 @@
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp import LOGGER
 from datetime import datetime, timedelta
 from dateutil.parser import parse as dateutil_parse
 import pandas as pd

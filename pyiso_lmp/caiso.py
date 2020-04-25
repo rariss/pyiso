@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, time
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.pyiso_lmp.base import BaseClient
+from pyiso_lmp.pyiso_lmp import LOGGER
 import copy
 import re
 from bs4 import BeautifulSoup
@@ -43,7 +43,8 @@ class CAISOClient(BaseClient):
 
     oasis_markets = {  # {'RT5M': 'RTM', 'DAHR': 'DAM', 'RTHR': 'HASP'}
         BaseClient.MARKET_CHOICES.hourly: 'HASP',
-        BaseClient.MARKET_CHOICES.fivemin: 'RTM',  # There are actually three codes used: RTPD (Real-time Pre-dispatch), RTD (real-time dispatch), and RTM (Real-Time Market). I can't figure out what the difference is.
+        BaseClient.MARKET_CHOICES.fivemin: 'RTM',
+        # There are actually three codes used: RTPD (Real-time Pre-dispatch), RTD (real-time dispatch), and RTM (Real-Time Market). I can't figure out what the difference is.
         BaseClient.MARKET_CHOICES.dam: 'DAM',
         BaseClient.MARKET_CHOICES.fifteenmin: 'RTPD'
     }
@@ -283,7 +284,7 @@ class CAISOClient(BaseClient):
                                                node=node_id)
 
         # Fetch data
-        data = self.fetch_oasis(payload=payload, return_all_files=not(lmp_only))
+        data = self.fetch_oasis(payload=payload, return_all_files=not (lmp_only))
         # data will be a single csv-derived string if lmp_only==True
         # data will be an array of csv-derived strings if lmp_only==False
         if lmp_only is True:
@@ -292,18 +293,22 @@ class CAISOClient(BaseClient):
                 return pd.DataFrame()
 
             try:
-                str_data = BytesIO(data)    # Changed from StringIO for Python 3.4
+                str_data = BytesIO(data)  # Changed from StringIO for Python 3.4
             except TypeError:
                 str_data = StringIO(data)
 
-            df = pd.read_csv(str_data, sep=",", index_col=0)
-            df.sort_index(inplace=True)
+            df = pd.read_csv(str_data, sep=",")
+
+            df.loc[:, ['INTERVALSTARTTIME_GMT', 'INTERVALENDTIME_GMT', 'OPR_DT']] = df.loc[:,
+                                                                          ['INTERVALSTARTTIME_GMT',
+                                                                           'INTERVALENDTIME_GMT', 'OPR_DT']].apply(
+                pd.to_datetime)
 
             # strip congestion and loss prices
-            try:
-                df = df.loc[df['LMP_TYPE'] == 'LMP']
-            except KeyError:  # no good data
-                return pd.DataFrame()
+            # try:
+            #     df = df.loc[df['LMP_TYPE'] == 'LMP']
+            # except KeyError:  # no good data
+            #     return pd.DataFrame()
         else:
             # data is an array of csv-derived strings
             df = pd.DataFrame()
@@ -360,7 +365,7 @@ class CAISOClient(BaseClient):
 
         # Turn into pandas Dataframe
         try:
-            str_data = BytesIO(data)    # Changed from StringIO.StringIO() for Python 3.4
+            str_data = BytesIO(data)  # Changed from StringIO.StringIO() for Python 3.4
         except TypeError:
             str_data = StringIO(data)
 
@@ -448,7 +453,7 @@ class CAISOClient(BaseClient):
             offset = 0
 
         # create list of combined datetimes
-        dts = [datetime.combine(date, time(hour=(h+offset))) for h in hours]
+        dts = [datetime.combine(date, time(hour=(h + offset))) for h in hours]
 
         # set list as index
         df.index = dts
@@ -501,10 +506,10 @@ class CAISOClient(BaseClient):
 
                 # store
                 parsed_data += self.serialize(sliced,
-                                      header=['timestamp', 'fuel_name', 'gen_MW'],
-                                      extras={'ba_name': self.NAME,
-                                              'market': self.MARKET_CHOICES.hourly,
-                                              'freq': self.FREQUENCY_CHOICES.hourly})
+                                              header=['timestamp', 'fuel_name', 'gen_MW'],
+                                              extras={'ba_name': self.NAME,
+                                                      'market': self.MARKET_CHOICES.hourly,
+                                                      'freq': self.FREQUENCY_CHOICES.hourly})
 
             # finish day
             this_date += timedelta(days=1)
@@ -560,7 +565,8 @@ class CAISOClient(BaseClient):
         else:
             # Return XML content
             if return_all_files:
-                raw_data = [BeautifulSoup(thisfile, 'xml').find_all(['REPORT_DATA', 'report_data']) for thisfile in content]
+                raw_data = [BeautifulSoup(thisfile, 'xml').find_all(['REPORT_DATA', 'report_data'])
+                            for thisfile in content]
                 return raw_data
             else:
                 raw_data = soup.find_all(['REPORT_DATA', 'report_data'])
@@ -635,7 +641,8 @@ class CAISOClient(BaseClient):
             data_item = raw_soup_dp.find(['DATA_ITEM', 'data_item']).string
             if data_item in data_items:
                 # parse timestamp
-                ts = self.utcify(raw_soup_dp.find(['INTERVAL_START_GMT', 'interval_start_gmt']).string)
+                ts = self.utcify(
+                    raw_soup_dp.find(['INTERVAL_START_GMT', 'interval_start_gmt']).string)
 
                 # parse val
                 if data_item == 'ISO_TOT_IMP_MW':
@@ -652,7 +659,8 @@ class CAISOClient(BaseClient):
         # assemble data
         for ts in sorted(extracted_data.keys()):
             parsed_dp = {data_label: extracted_data[ts]}
-            parsed_dp.update({'timestamp': ts, 'freq': freq, 'market': market, 'ba_name': self.NAME})
+            parsed_dp.update(
+                {'timestamp': ts, 'freq': freq, 'market': market, 'ba_name': self.NAME})
             if self.options['data'] == 'gen':
                 parsed_dp.update({'fuel_name': 'other'})
 
@@ -679,9 +687,9 @@ class CAISOClient(BaseClient):
         for raw_soup_dp in raw_data:
             if raw_soup_dp.find(['DATA_ITEM', 'data_item']).string == data_item_key and \
                     raw_soup_dp.find(['RESOURCE_NAME', 'resource_name']).string == 'CA ISO-TAC':
-
                 # parse timestamp
-                ts = self.utcify(raw_soup_dp.find(['INTERVAL_START_GMT', 'interval_start_gmt']).string)
+                ts = self.utcify(
+                    raw_soup_dp.find(['INTERVAL_START_GMT', 'interval_start_gmt']).string)
 
                 # set up base
                 parsed_dp = {'timestamp': ts,
@@ -696,7 +704,7 @@ class CAISOClient(BaseClient):
         # return
         return parsed_data
 
-    def todays_outlook_time(self, demand_soup):       
+    def todays_outlook_time(self, demand_soup):
         for ts_soup in demand_soup.find_all(class_='docdate'):
             if str(ts_soup) is None:
                 continue
@@ -708,7 +716,7 @@ class CAISOClient(BaseClient):
 
     def fetch_todays_outlook_renewables(self):
         # get renewables data
-        response = self.request(self.base_url_outlook+'renewables.html')
+        response = self.request(self.base_url_outlook + 'renewables.html')
         try:
             return BeautifulSoup(response.content, 'lxml')
         except AttributeError:
@@ -764,7 +772,7 @@ class CAISOClient(BaseClient):
         # parse "Today's Outlook" data
 
         # get timestamp
-        response = self.request(self.base_url_outlook+'systemconditions.html')
+        response = self.request(self.base_url_outlook + 'systemconditions.html')
         ts = None
         if response:
             demand_soup = BeautifulSoup(response.content, 'lxml')

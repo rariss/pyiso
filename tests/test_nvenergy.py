@@ -1,5 +1,5 @@
-from pyiso import client_factory
-from pyiso import nvenergy
+from pyiso_lmp import client_factory
+from pyiso_lmp import nvenergy
 from unittest import TestCase
 from io import StringIO
 from datetime import datetime, timedelta

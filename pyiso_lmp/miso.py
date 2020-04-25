@@ -1,6 +1,6 @@
 from collections import namedtuple
-from pyiso.base import BaseClient
-from pyiso import LOGGER
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp import LOGGER
 import pandas as pd
 from io import BytesIO
 from datetime import datetime, timedelta

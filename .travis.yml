@@ -31,6 +31,6 @@ deploy:
     secure: SHHMXoR9TEeWyarMLSoPEP1MFCOawTAgFTaBuLAMu7nGVk0+HbwD78MiAd6k7LaSYj+huL8/B6JKWgY36b2liS33EzJUkaMtS9vt/RzTZUJix/rJepZ4d+6e+rAr+DL/ulCUGot8ILK6vO0S1BzlcQYyXJsc01LzngFDcVWY6sA=
   on:
     tags: true
-    repo: WattTime/pyiso
+    repo: WattTime/pyiso_lmp
 after_success:
   - coveralls

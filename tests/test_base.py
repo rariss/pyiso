@@ -1,5 +1,5 @@
 from unittest import TestCase
-from pyiso.base import BaseClient
+from pyiso_lmp.base import BaseClient
 from datetime import datetime, timedelta
 import pytz
 import pandas as pd

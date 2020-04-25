@@ -1,6 +1,6 @@
-from pyiso import client_factory, BALANCING_AUTHORITIES
-from pyiso.base import BaseClient
-from pyiso.eu import EUClient
+from pyiso_lmp import client_factory, BALANCING_AUTHORITIES
+from pyiso_lmp.base import BaseClient
+from pyiso_lmp.eu import EUClient
 from unittest import TestCase
 from datetime import datetime, timedelta
 import unittest

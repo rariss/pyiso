@@ -1,6 +1,6 @@
 import os
 import json
-from pyiso import client_factory
+from pyiso_lmp import client_factory
 from unittest import TestCase
 from datetime import datetime, timedelta
 import pytz
@@ -221,13 +221,13 @@ class TestISONE(TestCase):
         self.assertLessEqual(prices[0]['timestamp'], start_at + timedelta(minutes=5))
         self.assertEqual(prices[0]['lmp'], 56.92)
 
-    @mock.patch('pyiso.isone.ISONEClient.request')
+    @mock.patch('pyiso_lmp.isone.ISONEClient.request')
     def test_get_morningreport(self, mock_request):
         mock_request.return_value = json.loads(read_fixture('isone_get_morningreport.json'))
         resp = self.c.get_morningreport()
         assert "MorningReports" in resp
 
-    @mock.patch('pyiso.isone.ISONEClient.request')
+    @mock.patch('pyiso_lmp.isone.ISONEClient.request')
     def test_get_morningreport_for_day(self, mock_request):
         mock_request.return_value = json.loads(read_fixture('isone_get_morningreport_day.json'))
         resp = self.c.get_morningreport(day="20160101")
@@ -236,13 +236,13 @@ class TestISONE(TestCase):
     def test_get_morningreport_bad_date(self):
         self.assertRaises(ValueError, self.c.get_morningreport, day="foo")
 
-    @mock.patch('pyiso.isone.ISONEClient.request')
+    @mock.patch('pyiso_lmp.isone.ISONEClient.request')
     def test_get_sevendayforecast(self, mock_request):
         mock_request.return_value = json.loads(read_fixture('isone_get_sevendayforecast.json'))
         resp = self.c.get_sevendayforecast()
         assert "SevenDayForecasts" in resp
 
-    @mock.patch('pyiso.isone.ISONEClient.request')
+    @mock.patch('pyiso_lmp.isone.ISONEClient.request')
     def test_get_sevendayforecast_for_day(self, mock_request):
         mock_request.return_value = json.loads(read_fixture('isone_get_sevendayforecast_day.json'))
         resp = self.c.get_sevendayforecast(day="20160101")

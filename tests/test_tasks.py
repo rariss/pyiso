@@ -1,4 +1,4 @@
-from pyiso import client_factory, tasks
+from pyiso_lmp import client_factory, tasks
 from unittest import TestCase
 from datetime import datetime, timedelta
 import pytz

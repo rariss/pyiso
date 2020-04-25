@@ -1,5 +1,5 @@
-from pyiso import client_factory, BALANCING_AUTHORITIES
-from pyiso.base import BaseClient
+from pyiso_lmp import client_factory, BALANCING_AUTHORITIES
+from pyiso_lmp.base import BaseClient
 from unittest import TestCase
 import pytz
 from datetime import datetime, timedelta
